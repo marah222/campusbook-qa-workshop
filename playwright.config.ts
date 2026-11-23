@@ -21,7 +21,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure'
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], channel: process.platform === 'win32' && !process.env.CI ? undefined : 'msedge' } }],
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], channel: process.platform === 'win32' && !process.env.CI ? 'msedge' : undefined } }],
   webServer: {
     command: process.platform === 'win32' ? 'npm.cmd run dev' : 'npm run dev',
     url: `${baseURL}/api/health`,
