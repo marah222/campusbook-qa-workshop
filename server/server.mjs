@@ -105,7 +105,8 @@ async function api(req, res, pathname, url) {
   if (cancelMatch && method === 'POST') {
     const booking = store.bookings.find(b => b.id === cancelMatch[1]);
     if (!booking || booking.userId !== user) return failure(res, 404, 'RESERVATION_NOT_FOUND', 'Reservation not found');
-    if (!canCancelBooking(booking, user)) return failure(res, 409, 'ALREADY_CANCELLED', 'This reservation is already cancelled');
+    if (booking.status === 'CANCELLED') return failure(res, 409, 'ALREADY_CANCELLED', 'This reservation is already cancelled');
+    if (!canCancelBooking(booking, user, new Date(DEMO_NOW))) return failure(res, 409, 'CANCELLATION_TOO_LATE', 'Reservations can only be cancelled before their start time');
     booking.status = 'CANCELLED';
     return send(res, 200, booking);
   }
