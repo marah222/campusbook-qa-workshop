@@ -1,8 +1,9 @@
 name: CampusBook QA
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
+    branches: [main, develop]
     types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 permissions:
@@ -33,6 +34,8 @@ jobs:
         run: npm run classroom:verify && npm run classroom:starters
       - name: Infrastructure smoke test
         run: npm run test:smoke
+      # Future coverage gate: add Vitest coverage once student tests are implemented.
+      # Current TODO/skip starters are not meaningful coverage evidence.
       - name: Unit tests
         run: npm run test:unit
       - name: Install Chromium and Linux libraries
