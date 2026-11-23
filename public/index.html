@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#173c35"/>
+<meta name="description" content="CampusBook — a sample room-booking application for a software QA workshop"/>
+<title>CampusBook · Study spaces</title><link rel="icon" href="/favicon.svg"/><link rel="stylesheet" href="/styles.css"/>
+</head><body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">▤</div><div><strong>CampusBook</strong><small>STUDENT SPACES</small></div></div>
+    <div class="side-label">WORKSPACE</div>
+    <nav aria-label="Primary navigation">
+      <button class="nav-item active" data-view="rooms" type="button"><span class="nav-icon">⌕</span><span>Find a room</span></button>
+      <button class="nav-item" data-view="reservations" type="button"><span class="nav-icon">▦</span><span>My reservations</span></button>
+    </nav>
+    <div class="sidebar-bottom"><div class="help-icon">✦</div><strong>A quieter place to think.</strong><p>Discover available study spaces in just a few clicks.</p><div class="bottom-divider"></div><small>DEMO ENVIRONMENT</small><div class="demo-clock">◷ &nbsp; Mar 18, 2027 · 8:00 AM</div></div>
+  </aside>
+  <div class="main-shell">
+    <header class="topbar"><div class="crumb">Campus &nbsp;<span>/</span>&nbsp; <strong id="currentCrumb">Find a room</strong></div>
+      <div class="top-right"><span class="demo-pill"><span class="live-dot"></span> QA workshop demo</span>
+        <label class="account-field"><span class="account-avatar">◉</span><span class="visually-hidden">Demo account</span><select id="accountSelect" aria-label="Demo account"><option value="alice">Alice Morgan</option><option value="bob">Bob Chen</option></select></label>
+      </div>
+    </header>
+    <main class="main-content">
+      <section id="roomsView">
+        <div class="eyebrow">THE RIGHT SPACE, RIGHT ON TIME</div>
+        <div class="page-title-row"><div><h1>Find your focus.</h1><p class="subtitle">Your next great idea deserves a great space. Search, choose, and settle in.</p></div><div class="date-mini"><span>◷</span><span>Today's demo date<br/><strong>March 18, 2027</strong></span></div></div>
+        <section class="search-panel" aria-label="Search rooms"><div class="panel-head"><strong>Find an available room</strong><span class="panel-tip">Choose what works for your group</span></div>
+          <form id="searchForm" class="filter-grid">
+            <label class="field"><span>Date</span><input type="date" id="searchDate" value="2027-03-18" required/></label>
+            <label class="field"><span>From</span><input type="time" id="searchStart" value="11:00" required/></label>
+            <label class="field"><span>Until</span><input type="time" id="searchEnd" value="12:00" required/></label>
+            <label class="field"><span>Group size</span><select id="minCapacity"><option value="1">1 person</option><option selected value="2">2 people</option><option value="3">3 people</option><option value="4">4 people</option><option value="5">5 people</option><option value="6">6 people</option></select></label>
+            <button id="searchButton" class="search-button" type="submit">⌕ &nbsp; Search rooms</button>
+          </form>
+        </section>
+        <div class="section-heading"><div><div class="eyebrow small">DISCOVER</div><h2>Available study spaces</h2><p id="resultSummary">Choose a room to see your options.</p></div><div class="result-counter" id="roomCount">— rooms</div></div>
+        <div class="rooms-grid" id="roomsGrid" aria-live="polite"><div class="loading">Loading rooms…</div></div>
+        <div class="info-banner"><span class="banner-icon">✧</span><div><strong>Studying with a group?</strong><span>Rooms can be booked for 30–120 minutes between 9 AM and 6 PM.</span></div></div>
+      </section>
+      <section id="reservationsView" hidden>
+        <div class="eyebrow">YOUR SPACE, YOUR SCHEDULE</div>
+        <div class="page-title-row"><div><h1>My reservations.</h1><p class="subtitle">Everything you've booked, all in one place.</p></div></div>
+        <div class="reservation-toolbar"><div><h2>Your booking history</h2><p id="reservationSummary">Review and manage your upcoming study sessions.</p></div><label class="field filter-field"><span>Show reservations</span><select id="statusFilter"><option value="ALL">All statuses</option><option value="CONFIRMED">Confirmed</option><option value="CANCELLED">Cancelled</option></select></label></div>
+        <div id="reservationList" class="reservation-list" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer>CampusBook <span>·</span> University learning demo <span>·</span> Not a production booking service</footer>
+  </div>
+</div>
+<dialog id="bookingDialog" class="booking-modal" aria-labelledby="bookingHeading"><form method="dialog" id="bookingForm" class="modal-inner"><div class="modal-top"><div><div class="eyebrow small">RESERVE A SPACE</div><h2 id="bookingHeading">Reserve a room</h2></div><button type="button" class="close-btn" id="closeModal" aria-label="Close booking dialog">×</button></div><p id="bookingDescription" class="modal-desc"></p><div class="modal-fields"><label class="field"><span>Start time</span><input id="bookingStart" type="time" required/></label><label class="field"><span>End time</span><input id="bookingEnd" type="time" required/></label></div><div class="modal-actions"><button type="button" class="secondary-button" id="cancelModal">Cancel</button><button type="submit" class="search-button" id="submitBooking">Reserve Room</button></div></form></dialog>
+<div id="toast" role="alert" class="toast" aria-live="assertive"></div>
+<script src="/assets/app.js" type="module"></script>
+</body></html>

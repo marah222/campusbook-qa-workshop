@@ -1,0 +1,54 @@
+name: CampusBook QA
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qa-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install teaching dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --no-audit --no-fund
+          else
+            echo "WARNING: package-lock.json missing. Instructor must commit it before class."
+            npm install --no-audit --no-fund
+          fi
+      - name: Verify test starter layout
+        run: npm run classroom:verify && npm run classroom:starters
+      - name: Compile and type-check
+        run: npm run build && npm run check
+      - name: Infrastructure smoke test
+        run: npm run test:smoke
+      - name: Unit tests
+        run: npm run test:unit
+      - name: Install Chromium and Linux libraries
+        run: npx playwright install --with-deps chromium
+      - name: Verify Playwright test discovery
+        run: npm run classroom:playwright-list
+      - name: API tests
+        run: npm run test:api
+      - name: UI tests
+        run: npm run test:ui
+      - name: Upload Playwright diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-diagnostics
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore

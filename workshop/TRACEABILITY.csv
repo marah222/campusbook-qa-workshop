@@ -1,0 +1,12 @@
+Student,Team,Story Issue,Test Cases,Unit File,API File,UI Scenario,Manual Result,Review PR,Release Risk
+S01,a,,,tests/unit/team-a/s01.test.ts,tests/api/team-a/s01.spec.ts,,,,,
+S02,a,,,tests/unit/team-a/s02.test.ts,tests/api/team-a/s02.spec.ts,,,,,
+S03,a,,,tests/unit/team-a/s03.test.ts,tests/api/team-a/s03.spec.ts,,,,,
+S04,b,,,tests/unit/team-b/s04.test.ts,tests/api/team-b/s04.spec.ts,,,,,
+S05,b,,,tests/unit/team-b/s05.test.ts,tests/api/team-b/s05.spec.ts,,,,,
+S06,b,,,tests/unit/team-b/s06.test.ts,tests/api/team-b/s06.spec.ts,,,,,
+S07,c,,,tests/unit/team-c/s07.test.ts,tests/api/team-c/s07.spec.ts,,,,,
+S08,c,,,tests/unit/team-c/s08.test.ts,tests/api/team-c/s08.spec.ts,,,,,
+S09,c,,,tests/unit/team-c/s09.test.ts,tests/api/team-c/s09.spec.ts,,,,,
+S10,d,,,tests/unit/team-d/s10.test.ts,tests/api/team-d/s10.spec.ts,,,,,
+S11,d,,,tests/unit/team-d/s11.test.ts,tests/api/team-d/s11.spec.ts,,,,,
