@@ -1,8 +1,11 @@
 import type { Period, BookingRequest, ValidationError } from './types.js';
 
 /** Determines whether two booking intervals overlap. */
+// export function intervalsOverlap(existing: Period, requested: Period): boolean {
+//   return existing.start <= requested.start && existing.end >= requested.end;
+// }
 export function intervalsOverlap(existing: Period, requested: Period): boolean {
-  return existing.start <= requested.start && existing.end >= requested.end;
+  return existing.start < requested.end && existing.end > requested.start;
 }
 
 export function isDurationAllowed(minutes: number): boolean {
