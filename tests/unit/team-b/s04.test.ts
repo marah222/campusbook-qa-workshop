@@ -292,7 +292,7 @@ describe('validateBookingRequest', () => {
       }
     ])('$testCaseName', ({ request, now, expected }) => {
       // Arrange: request with an invalid group size and expected error is prepared.
-      // Act: validate the booking request.
+      // Act: validate the booking request   .
       const actualResult = validateBookingRequest(request, now);
       // Assert: confirm the request is rejected with INVALID_GROUP (422).
       expect(actualResult).toEqual(expected);
