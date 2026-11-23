@@ -27,10 +27,10 @@ jobs:
             echo "WARNING: package-lock.json missing. Instructor must commit it before class."
             npm install --no-audit --no-fund
           fi
-      - name: Verify test starter layout
-        run: npm run classroom:verify && npm run classroom:starters
       - name: Compile and type-check
         run: npm run build && npm run check
+      - name: Verify test starter layout
+        run: npm run classroom:verify && npm run classroom:starters
       - name: Infrastructure smoke test
         run: npm run test:smoke
       - name: Unit tests
