@@ -64,7 +64,7 @@ Select **Alice Morgan** or **Bob Chen** using the top-right demo-account selecto
 | Reservation dates | Future, same-day, end after start |
 | Adjacent slots | 10:00–11:00 and 11:00–12:00 do not overlap |
 | Reservation creation | Confirmed booking persisted for current demo user |
-| Cancellation | Owner can cancel confirmed booking; cancelled bookings remain in history |
+| Cancellation | Owner can cancel a confirmed booking only before its start time; cancelled bookings remain in history |
 | Released slots | Cancelled bookings no longer block availability |
 | Reservation history | Users see only their own records; status filter matches requested status |
 
@@ -94,7 +94,7 @@ All protected routes require `x-demo-user: alice` or `x-demo-user: bob` and opti
 | GET | `/api/rooms?minCapacity=4` | 200, active matching rooms |
 | GET | `/api/rooms?start=2027-03-18T10:00&end=2027-03-18T11:00` | 200, available rooms |
 | POST | `/api/reservations` | 201, confirmed reservation; 409 conflict; 422 invalid input |
-| POST | `/api/reservations/BK-101/cancel` | 200 cancelled; 404 wrong owner; 409 already cancelled |
+| POST | `/api/reservations/BK-101/cancel` | 200 cancelled; 404 wrong owner; 409 already cancelled or start time reached |
 | GET | `/api/reservations` | 200, current student's bookings |
 | GET | `/api/reservations?status=CANCELLED` | 200, requested status only |
 | POST | `/api/testing/reset` | 200, local fixture reset only |
