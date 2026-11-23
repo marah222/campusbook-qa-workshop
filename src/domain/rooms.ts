@@ -3,6 +3,11 @@ import { intervalsOverlap } from './booking.js';
 import { blocksAvailability } from './cancellation.js';
 
 export function getVisibleRooms(rooms: Room[]): Room[] {
+  rooms.forEach((value: Room, index: number)=>{
+    if(value.id==null||value.active==null||value.amenities==null||value.capacity==null||value.color==null||value.floor==null||value.name==null){
+      throw new Error("null safty failed");
+    }
+  });
   return rooms.filter(room => room.active);
 }
 
