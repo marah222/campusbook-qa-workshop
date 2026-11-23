@@ -27,22 +27,22 @@ const inactiveRoom = {
 
   test.each([
     {
-      name: 'allInactive_ShouldReturnNoRoom',
+      name: 'getVisibleRooms_allInactive_ShouldReturnNoRoom',
       rooms: [inactiveRoom],
       expected: []
     },
     {
-      name: 'allactive_ShouldReturnAllRooms',
+      name: 'getVisibleRooms_allactive_ShouldReturnAllRooms',
       rooms: [activeRoom],
       expected: [activeRoom]
     },
      {
-      name: 'Mixed_ShouldReturnOnlyActiveRooms',
+      name: 'getVisibleRooms_Mixed_ShouldReturnOnlyActiveRooms',
       rooms: [activeRoom,inactiveRoom],
       expected: [activeRoom]
     },
     {
-      name: 'Empty_ShouldReturnNoRooms',
+      name: 'getVisibleRooms_Empty_ShouldReturnNoRooms',
       rooms: [],
       expected: []
     }
@@ -56,7 +56,7 @@ const inactiveRoom = {
     expect(visibleRooms).toEqual(expected);
   });
 
-  test('NullList_ShouldThrowError', () => {
+  test('getVisibleRooms_NullList_ShouldThrowError', () => {
     // Arrange
     const rooms = null as unknown as Room[];
 
@@ -64,7 +64,7 @@ const inactiveRoom = {
     expect(() => getVisibleRooms(rooms)).toThrow();
   });
 
-  test('ListConatinNull_ShouldThrowError', () => {
+  test('getVisibleRooms_ListConatinNull_ShouldThrowError', () => {
     // Arrange
     const rooms = [null] as unknown as Room[];
 
@@ -72,7 +72,7 @@ const inactiveRoom = {
     expect(() => getVisibleRooms(rooms)).toThrow();
   });
 
-  test('NullParameter_ShouldThrowError', () => {
+  test('getVisibleRooms_NullParameter_ShouldThrowError', () => {
   // Arrange
   const validRoom: Room = {
     id: 'R1',
@@ -91,7 +91,7 @@ const inactiveRoom = {
       [field]: null
     } as unknown as Room;
 
-    expect(
+    expect( () =>
       getVisibleRooms([invalidRoom]),
       `should reject a null ${String(field)}`
     ).toThrow();
