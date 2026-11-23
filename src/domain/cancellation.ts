@@ -6,5 +6,5 @@ export function canCancelBooking(booking: Booking, userId: string): boolean {
 
 /** Checks whether a booking consumes a room time slot. */
 export function blocksAvailability(_booking: Booking): boolean {
-  return true;
+  return _booking.status === 'CONFIRMED';
 }
