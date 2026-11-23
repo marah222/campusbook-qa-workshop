@@ -10,8 +10,11 @@ import type { ReservationStatus } from '../../../src/domain/types.js';
 // Ensure the assertion would FAIL if the business rule were violated.
 
 describe('blocksAvailability', () => {
-    test('blocksAvailability_BookingReservationStatusCONFIRMED_ShouldReturnTrue', () => {
-        
+
+    test.each([
+        ['CONFIRMED', true],
+        ['CANCELLED', false]
+    ])('blocksAvailability_BookingReservationStatus%s_ShouldReturn%s', (status: string, expected: boolean) => {
         const booking = {
             id: 'BK-101',
             roomId: 'R102',
@@ -19,27 +22,12 @@ describe('blocksAvailability', () => {
             start: '2024-06-01T10:00:00Z',
             end: '2024-06-01T11:00:00Z',
             people: 2,
-            status: 'CONFIRMED' as ReservationStatus,
+            status: status as ReservationStatus,
             createdAt: '2024-05-01T09:00:00Z'
         };
         const result = blocksAvailability(booking);
-        expect(result).toBe(true);
+        expect(result).toBe(expected);
     });
 
-    test('blocksAvailability_BookingReservationStatusCANCELLED_ShouldReturnFalse', () => {
-        
-        const booking = {
-            id: 'BK-101',
-            roomId: 'R102',
-            userId: 'U001',
-            start: '2024-06-01T10:00:00Z',
-            end: '2024-06-01T11:00:00Z',
-            people: 2,
-            status: 'CANCELLED' as ReservationStatus,
-            createdAt: '2024-05-01T09:00:00Z'
-        };
-        const result = blocksAvailability(booking);
-        expect(result).toBe(false);
-    });
 });
 
