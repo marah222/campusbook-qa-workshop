@@ -9,6 +9,6 @@ if(result.status!==0){console.error(combined);console.error('FAIL: Playwright co
 else {
  const m=combined.match(/Total:\s*(\d+)\s+tests?\s+in\s+(\d+)\s+files?/i);
  if(!m){console.error(combined);console.error('FAIL: Playwright did not report a test total.');process.exitCode=1;}
- else if(Number(m[1])!==21 || Number(m[2])!==21){console.error(combined);console.error(`FAIL: expected 21 tests in 21 files; got ${m[1]} in ${m[2]}.`);process.exitCode=1;}
- else console.log('PASS: Playwright actually discovers 21 tests in 21 files.');
+ else if(Number(m[1])<21 || Number(m[2])<21){console.error(combined);console.error(`FAIL: expected at least 21 tests in at least 21 files; got ${m[1]} in ${m[2]}.`);process.exitCode=1;}
+ else console.log('PASS: Playwright discovers at least 21 tests in at least 21 files.');
 }

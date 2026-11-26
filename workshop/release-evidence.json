@@ -1,0 +1,11 @@
+{
+  "releaseApproved": false,
+  "instructor": "",
+  "ciRunUrl": "",
+  "coverageReviewed": false,
+  "securityReviewed": false,
+  "verifiedStories": [],
+  "knownRisks": [
+    "CampusBook uses an intentionally insecure demo identity header and is not suitable for real-user production deployment."
+  ]
+}
