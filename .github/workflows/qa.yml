@@ -1,9 +1,9 @@
 name: CampusBook QA
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, 'team-*']
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop, 'team-*']
     types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 permissions:
@@ -47,6 +47,9 @@ jobs:
       # Current TODO/skip starters are not meaningful coverage evidence.
       - name: Unit tests
         run: npm run test:unit
+      - name: Release evidence and executable story checks
+        if: github.event_name == 'pull_request' && github.base_ref == 'main'
+        run: node scripts/governance/verify-release.mjs
       - name: Install Chromium and Linux libraries
         run: npx playwright install --with-deps chromium
       - name: Verify Playwright test discovery
@@ -63,4 +66,41 @@ jobs:
           path: |
             playwright-report/
             test-results/
+          if-no-files-found: ignore
+
+  dependency-audit:
+    name: dependency-audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Fail on high or critical dependency vulnerabilities
+        run: npm audit --audit-level=high
+
+  unit-coverage:
+    name: unit-coverage
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Install matching Vitest coverage provider for CI
+        run: npm install --no-save --package-lock=false @vitest/coverage-v8@5.0.1
+      - name: Measure and enforce domain unit coverage
+        run: npm run test:coverage
+      - name: Save coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-coverage-report
+          path: coverage/
           if-no-files-found: ignore
