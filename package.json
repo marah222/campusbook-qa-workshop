@@ -21,7 +21,9 @@
     "classroom:reset": "node scripts/reset-scope.mjs",
     "classroom:starters": "node scripts/check-starter-layout.mjs",
     "classroom:verify": "node scripts/verify-workshop.mjs",
-    "classroom:playwright-list": "node scripts/verify-playwright-list.mjs"
+    "classroom:playwright-list": "node scripts/verify-playwright-list.mjs",
+    "test:coverage": "vitest run tests/unit --coverage",
+    "test:release": "node scripts/governance/verify-release.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.58.0",
