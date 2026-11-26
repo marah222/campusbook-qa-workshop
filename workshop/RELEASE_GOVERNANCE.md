@@ -23,7 +23,7 @@ Choose `Require status checks to pass` and select the published GitHub Actions c
 - Develop → main: instructor-approved, all 11 API story cases and 4 feature browser cases executable (no skipped placeholders), coverage and security checks green, documented known risks and signed release evidence. Release should **not** go ahead merely because the basic CI is green.
 
 ## Coverage policy
-Initial automated gate: domain unit coverage ≥60% statements, lines and functions, ≥40% branches. These are **initial guardrails**, not evidence of exhaustive testing and not a grading measure. Review the coverage report; raise thresholds once the team adds meaningful scenarios. Fail if the coverage provider cannot run. The CI installs the matching Vitest coverage provider; for a durable lockfile, add a pinned matching provider to the repo's dev dependencies in a follow-up reviewed dependency update.
+Initial automated gate: domain unit coverage ≥85% lines, ≥80% statements and functions, ≥75% branches. These are **initial guardrails**, not evidence of exhaustive testing and not a grading measure. Review the coverage report; raise thresholds once the team adds meaningful scenarios. Fail if the coverage provider cannot run. The CI installs the matching Vitest coverage provider; for a durable lockfile, add a pinned matching provider to the repo's dev dependencies in a follow-up reviewed dependency update.
 
 ## Security and code ownership
 - `npm audit --audit-level=high` blocks known high/critical package vulnerabilities. Moderate findings are recorded and reviewed rather than force-updated blindly.
