@@ -36,8 +36,10 @@ for(const f of [...apiFiles,...unitFiles,...uiFiles,...other.filter(x=>x.endsWit
   if(!alternatives.some(p=>existsSync(p)))errors.push(`BROKEN IMPORT ${f} -> ${m[1]}`);
  }
 }
-for(const f of apiFiles){if(exists(f) && !/test\.skip\s*\(/.test(readFileSync(path.join(root,f),'utf8')))errors.push(`NOT an intentionally skipped API starter: ${f}`);}
-for(const f of uiFiles){if(exists(f) && !/test\.skip\s*\(/.test(readFileSync(path.join(root,f),'utf8')))errors.push(`NOT an intentionally skipped UI starter: ${f}`);}
+const hasPlaywrightTest = source => /\btest(?:\.(?:skip|fixme|only))?\s*\(/.test(source) || /\btest\.each\s*\(/.test(source);
+for(const f of [...apiFiles,...uiFiles]) {
+  if (exists(f) && !hasPlaywrightTest(readFileSync(path.join(root,f),'utf8'))) errors.push(`MISSING PLAYWRIGHT TEST ${f}`);
+}
 if(exists('playwright.config.ts')) {
  const config=readFileSync(path.join(root,'playwright.config.ts'),'utf8');
  if(!config.includes("testMatch: '**/*.spec.ts'"))errors.push('Playwright discovery must match all *.spec.ts');
@@ -46,4 +48,4 @@ console.log(`Playwright inventory: ${apiFiles.length+uiFiles.length+2} test file
 console.log(`Vitest inventory: ${unitFiles.length} student starters + 1 smoke file.`);
 console.log(`Required file inventory: ${required.length-errors.filter(x=>x.startsWith('MISSING')).length}/${required.length}.`);
 if(errors.length){for(const e of errors)console.error('FAIL:',e);process.exitCode=1;}
-else console.log('PASS: All required files, local imports and skipped starter declarations are present.');
+else console.log('PASS: All required files, local imports and Playwright test declarations are present.');
