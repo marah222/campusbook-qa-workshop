@@ -1,0 +1,10 @@
+# The instructor reviews modifications to governance and sensitive infrastructure.
+# For the classroom, ordinary student story PRs still use cross-team human reviews.
+/.github/workflows/ @marah222
+/.github/CODEOWNERS @marah222
+/scripts/governance/ @marah222
+/workshop/release-evidence.json @marah222
+/vitest.config.ts @marah222
+/package.json @marah222
+/package-lock.json @marah222
+/server/ @marah222
